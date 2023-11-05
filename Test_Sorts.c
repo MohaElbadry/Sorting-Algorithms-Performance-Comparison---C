@@ -36,22 +36,26 @@ for (arr_size=1000; arr_size <= 10000; arr_size =arr_size + 1000) {
        
     for(int j=0;j<3;j++){
     // Initialize the array with random data
-        if (j==0)
-        {
-            for (int i = 0; i < arr_size; i++) {
-            arr[i] = rand();
+        switch (j){
+            case 0:
+                for (int i = 0; i < arr_size; i++) {
+                arr[i] = rand();
+                }
+                break;
+            case 1:
+                for (int i = 0; i < arr_size; i++) {
+                arr[i] = i;
+                }
+                break;
+            case 2:
+                for (int i = arr_size; i > 0; i--) {
+                arr[i] = i;
+                }
+                break;
+            default:
+                break;
         }
-        }
-        if (j==1)
-        {
-            for (int i = 0; i < arr_size; i++) {
-            arr[i] = i;
-        }}
-        if (j==2)
-        {
-            for (int i = arr_size; i > 0; i--) {
-            arr[i] = i;
-        }}
+            
 
         clock_t start, end;
         double cpu_time_used;
@@ -66,11 +70,12 @@ for (arr_size=1000; arr_size <= 10000; arr_size =arr_size + 1000) {
         cpu_time_used = ((double)(end - start)) / CLOCKS_PER_SEC;
         printf("Time taken for Bubble Sort: %f seconds\n", cpu_time_used);
         printf("Sorted array using Bubble Sort: \n\n");
-            // Store performance data in the data file
+
+        // Store performance data in the data file
         bubblefile = j==0?fopen("bubbledata(rand).txt", "a"):j==1?fopen("bubbledata(ord).txt", "a"):fopen("bubbledata(rev).txt", "a");
         fprintf(bubblefile, "BubbleSort %d %f \n", arr_size, cpu_time_used);
         fclose(bubblefile);
-            // You can do the same for other sorting algorithms
+            
         // Test Selection Sort
         memcpy(arr_selection, arr, arr_size * sizeof(int));    
         printf("Start - Selection Sort: \n");
@@ -82,6 +87,7 @@ for (arr_size=1000; arr_size <= 10000; arr_size =arr_size + 1000) {
         printf("Time taken for Bubble Sort: %f seconds\n", cpu_time_used);
         printf("Sorted array using Selection Sort: \n\n\n");
 
+        // Store performance data in the data file
         selectionfile = j==0?fopen("selectiondata(rand).txt", "a"):j==1?fopen("selectiondata(ord).txt", "a"):fopen("selectiondata(rev).txt", "a");
         fprintf(selectionfile, "SelectionSort %d %f \n", arr_size, cpu_time_used);
         fclose(selectionfile);
@@ -97,6 +103,7 @@ for (arr_size=1000; arr_size <= 10000; arr_size =arr_size + 1000) {
         printf("Time taken for Insertion Sort: %f seconds\n", cpu_time_used);
         printf("Sorted array using Insertion Sort: \n\n\n");
 
+        // Store performance data in the data file
         insertionfile = j==0?fopen("insertiondata(rand).txt", "a"):j==1?fopen("insertiondata(ord).txt", "a"):fopen("insertiondata(rev).txt", "a");
         fprintf(insertionfile, "InsertionSort %d %f \n", arr_size, cpu_time_used);
         fclose(insertionfile);
@@ -112,6 +119,7 @@ for (arr_size=1000; arr_size <= 10000; arr_size =arr_size + 1000) {
         printf("Time taken for Merge Sort: %f seconds\n", cpu_time_used);
         printf("Sorted array using Merge Sort: \n\n\n");
 
+        // Store performance data in the data file
         mergefile = j==0?fopen("mergedata(rand).txt", "a"):j==1?fopen("mergedata(ord).txt", "a"):fopen("mergedata(rev).txt", "a");
         fprintf(mergefile, "MergeSort %d %f \n", arr_size, cpu_time_used);
         fclose(mergefile);
@@ -127,9 +135,11 @@ for (arr_size=1000; arr_size <= 10000; arr_size =arr_size + 1000) {
         printf("Time taken for Quick Sort: %f seconds\n", cpu_time_used);
         printf("Sorted array using Quick Sort: \n\n\n");
 
+        // Store performance data in the data file
         quickfile = j==0?fopen("quickdata(rand).txt", "a"):j==1?fopen("quickdata(ord).txt", "a"):fopen("quickdata(rev).txt", "a");
         fprintf(quickfile, "QuickSort %d %f \n", arr_size, cpu_time_used);
         fclose(quickfile);
+        
     }   // Remember to free the allocated memory
         free(arr);
         free(arr_bubble);
@@ -139,7 +149,7 @@ for (arr_size=1000; arr_size <= 10000; arr_size =arr_size + 1000) {
         free(arr_quick);
 }
 
-    //*****************************random data*******************************************
+    //*****************************GNUPLOT random data*******************************************
     dataFile = popen("gnuplot -persistent", "w");
     fprintf(dataFile, "set title 'Performance des Algorithmes de Tri (Random DATA)'\n");
     fprintf(dataFile, "set xlabel 'Array Size'\n");
@@ -161,7 +171,7 @@ for (arr_size=1000; arr_size <= 10000; arr_size =arr_size + 1000) {
 
     fclose(dataFile);
 
-    //*****************************ordered data*******************************************
+    //*****************************GNUPLOT ordered data*******************************************
     dataFile = popen("gnuplot -persistent", "w");
     fprintf(dataFile, "set title 'Performance des Algorithmes de Tri (Ordered DATA)'\n");
     fprintf(dataFile, "set xlabel 'Array Size'\n");
@@ -182,7 +192,7 @@ for (arr_size=1000; arr_size <= 10000; arr_size =arr_size + 1000) {
     fprintf(dataFile, "     'quickdata(ord).txt' using 2:3 with linespoints ls 5 title 'Quick Sort'\n");
 
     fclose(dataFile);
-    //*****************************ordered data*******************************************
+    //*****************************GNUPLOT ordered data*******************************************
     dataFile = popen("gnuplot -persistent", "w");
     fprintf(dataFile, "set title 'Performance des Algorithmes de Tri (Reversed DATA)'\n");
     fprintf(dataFile, "set xlabel 'Array Size'\n");
