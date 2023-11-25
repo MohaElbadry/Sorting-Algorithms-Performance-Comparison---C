@@ -23,6 +23,7 @@ int main() {
     scanf("%d",&size);
 
 for (arr_size=0; arr_size <= size; arr_size =arr_size + 1000) {
+    printf("\n ~enter the size fo array : %d ~~~\n\n\n", arr_size);
         // Allocate memory for the array
         int *arr = (int *)malloc(arr_size * sizeof(int));
         int *arr_bubble = (int *)malloc(arr_size * sizeof(int));
@@ -36,16 +37,19 @@ for (arr_size=0; arr_size <= size; arr_size =arr_size + 1000) {
     // Initialize the array with random data
         switch (j){
             case 0:
+                printf("\n ~Random DATA~\n\n\n");
                 for (int i = 0; i < arr_size; i++) {
                 arr[i] = rand();
                 }
                 break;
             case 1:
+                printf("\n ~Sorted DATA~\n\n\n");
                 for (int i = 0; i < arr_size; i++) {
                 arr[i] = i;
                 }
                 break;
             case 2:
+                printf("\n ~Reversed DATA~\n\n\n");
                 for (int i = arr_size; i > 0; i--) {
                 arr[i] = i;
                 }
