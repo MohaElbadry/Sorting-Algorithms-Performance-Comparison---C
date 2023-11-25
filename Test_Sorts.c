@@ -18,13 +18,11 @@ void printArray(int arr[], int size) {
 
 int main() {
     FILE *dataFile,*bubblefile,*selectionfile,*insertionfile,*mergefile,*quickfile;
-    int arr_size;
+    int arr_size ,size;
+    printf("enter the size fo array : ");
+    scanf("%d",&size);
 
-    // Open a data file for storing performance data
-    // dataFile = fopen("sorting_data.txt", "w");
-
-
-for (arr_size=1000; arr_size <= 10000; arr_size =arr_size + 1000) {
+for (arr_size=0; arr_size <= size; arr_size =arr_size + 1000) {
         // Allocate memory for the array
         int *arr = (int *)malloc(arr_size * sizeof(int));
         int *arr_bubble = (int *)malloc(arr_size * sizeof(int));
@@ -139,7 +137,7 @@ for (arr_size=1000; arr_size <= 10000; arr_size =arr_size + 1000) {
         quickfile = j==0?fopen("quickdata(rand).txt", "a"):j==1?fopen("quickdata(ord).txt", "a"):fopen("quickdata(rev).txt", "a");
         fprintf(quickfile, "QuickSort %d %f \n", arr_size, cpu_time_used);
         fclose(quickfile);
-        
+
     }   // Remember to free the allocated memory
         free(arr);
         free(arr_bubble);
@@ -156,18 +154,18 @@ for (arr_size=1000; arr_size <= 10000; arr_size =arr_size + 1000) {
     fprintf(dataFile, "set ylabel 'Execution Time (seconds)'\n");
     fprintf(dataFile, "set key top left\n");
 
-    fprintf(dataFile,"set style data linespoints\n");
+    fprintf(dataFile,"set style data lines\n");
     fprintf(dataFile,"set style line 1 lc rgb 'red' lw 1\n");
     fprintf(dataFile,"set style line 2 lc rgb 'blue' lw 1\n");
     fprintf(dataFile,"set style line 3 lc rgb 'green' lw 1\n");
     fprintf(dataFile,"set style line 4 lc rgb 'purple' lw 1\n");
     fprintf(dataFile,"set style line 5 lc rgb 'orange' lw 1\n");
 
-    fprintf(dataFile, "plot 'bubbledata(rand).txt' using 2:3 with linespoints ls 1 title 'Bubble Sort', \\\n");
-    fprintf(dataFile, "     'selectiondata(rand).txt' using 2:3 with linespoints ls 2 title 'Selection Sort', \\\n");
-    fprintf(dataFile, "     'insertiondata(rand).txt' using 2:3 with linespoints ls 3 title 'Insertion Sort', \\\n");
-    fprintf(dataFile, "     'mergedata(rand).txt' using 2:3 with linespoints ls 4 title 'Merge Sort', \\\n");
-    fprintf(dataFile, "     'quickdata(rand).txt' using 2:3 with linespoints ls 5 title 'Quick Sort'\n");
+    fprintf(dataFile, "plot 'bubbledata(rand).txt' using 2:3 smooth csplines with lines ls 1 title 'Bubble Sort', \\\n");
+    fprintf(dataFile, "     'selectiondata(rand).txt' using 2:3 smooth csplines with lines ls 2 title 'Selection Sort', \\\n");
+    fprintf(dataFile, "     'insertiondata(rand).txt' using 2:3 smooth csplines with lines ls 3 title 'Insertion Sort', \\\n");
+    fprintf(dataFile, "     'mergedata(rand).txt' using 2:3 smooth csplines with lines ls 4 title 'Merge Sort', \\\n");
+    fprintf(dataFile, "     'quickdata(rand).txt' using 2:3 smooth csplines with lines ls 5 title 'Quick Sort'\n");
 
     fclose(dataFile);
 
@@ -178,20 +176,21 @@ for (arr_size=1000; arr_size <= 10000; arr_size =arr_size + 1000) {
     fprintf(dataFile, "set ylabel 'Execution Time (seconds)'\n");
     fprintf(dataFile, "set key top left\n");
 
-    fprintf(dataFile,"set style data linespoints\n");
+    fprintf(dataFile,"set style data lines\n");
     fprintf(dataFile,"set style line 1 lc rgb 'red' lw 1\n");
     fprintf(dataFile,"set style line 2 lc rgb 'blue' lw 1\n");
     fprintf(dataFile,"set style line 3 lc rgb 'green' lw 1\n");
     fprintf(dataFile,"set style line 4 lc rgb 'purple' lw 1\n");
     fprintf(dataFile,"set style line 5 lc rgb 'orange' lw 1\n");
 
-    fprintf(dataFile, "plot 'bubbledata(ord).txt' using 2:3 with linespoints ls 1 title 'Bubble Sort', \\\n");
-    fprintf(dataFile, "     'selectiondata(ord).txt' using 2:3 with linespoints ls 2 title 'Selection Sort', \\\n");
-    fprintf(dataFile, "     'insertiondata(ord).txt' using 2:3 with linespoints ls 3 title 'Insertion Sort', \\\n");
-    fprintf(dataFile, "     'mergedata(ord).txt' using 2:3 with linespoints ls 4 title 'Merge Sort', \\\n");
-    fprintf(dataFile, "     'quickdata(ord).txt' using 2:3 with linespoints ls 5 title 'Quick Sort'\n");
+    fprintf(dataFile, "plot 'bubbledata(ord).txt' using 2:3 smooth csplines with lines ls 1 title 'Bubble Sort', \\\n");
+    fprintf(dataFile, "     'selectiondata(ord).txt' using 2:3 smooth csplines with lines ls 2 title 'Selection Sort', \\\n");
+    fprintf(dataFile, "     'insertiondata(ord).txt' using 2:3 smooth csplines with lines ls 3 title 'Insertion Sort', \\\n");
+    fprintf(dataFile, "     'mergedata(ord).txt' using 2:3 smooth csplines with lines ls 4 title 'Merge Sort', \\\n");
+    fprintf(dataFile, "     'quickdata(ord).txt' using 2:3 smooth csplines with lines ls 5 title 'Quick Sort'\n");
 
     fclose(dataFile);
+    
     //*****************************GNUPLOT ordered data*******************************************
     dataFile = popen("gnuplot -persistent", "w");
     fprintf(dataFile, "set title 'Performance des Algorithmes de Tri (Reversed DATA)'\n");
@@ -199,18 +198,18 @@ for (arr_size=1000; arr_size <= 10000; arr_size =arr_size + 1000) {
     fprintf(dataFile, "set ylabel 'Execution Time (seconds)'\n");
     fprintf(dataFile, "set key top left\n");
 
-    fprintf(dataFile,"set style data linespoints\n");
+    fprintf(dataFile,"set style data lines\n");
     fprintf(dataFile,"set style line 1 lc rgb 'red' lw 1\n");
     fprintf(dataFile,"set style line 2 lc rgb 'blue' lw 1\n");
     fprintf(dataFile,"set style line 3 lc rgb 'green' lw 1\n");
     fprintf(dataFile,"set style line 4 lc rgb 'purple' lw 1\n");
     fprintf(dataFile,"set style line 5 lc rgb 'orange' lw 1\n");
 
-    fprintf(dataFile, "plot 'bubbledata(rev).txt' using 2:3 with linespoints ls 1 title 'Bubble Sort', \\\n");
-    fprintf(dataFile, "     'selectiondata(rev).txt' using 2:3 with linespoints ls 2 title 'Selection Sort', \\\n");
-    fprintf(dataFile, "     'insertiondata(rev).txt' using 2:3 with linespoints ls 3 title 'Insertion Sort', \\\n");
-    fprintf(dataFile, "     'mergedata(rev).txt' using 2:3 with linespoints ls 4 title 'Merge Sort', \\\n");
-    fprintf(dataFile, "     'quickdata(rev).txt' using 2:3 with linespoints ls 5 title 'Quick Sort'\n");
+    fprintf(dataFile, "plot 'bubbledata(rev).txt' using 2:3 smooth csplines with lines ls 1 title 'Bubble Sort', \\\n");
+    fprintf(dataFile, "     'selectiondata(rev).txt' using 2:3 smooth csplines with lines ls 2 title 'Selection Sort', \\\n");
+    fprintf(dataFile, "     'insertiondata(rev).txt' using 2:3 smooth csplines with lines ls 3 title 'Insertion Sort', \\\n");
+    fprintf(dataFile, "     'mergedata(rev).txt' using 2:3 smooth csplines with lines ls 4 title 'Merge Sort', \\\n");
+    fprintf(dataFile, "     'quickdata(rev).txt' using 2:3 smooth csplines with lines ls 5 title 'Quick Sort'\n");
 
     fclose(dataFile);
     
